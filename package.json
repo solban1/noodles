@@ -1,0 +1,36 @@
+{
+  "name": "noodles",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solban1/noodles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solban1/noodles/issues"
+  },
+  "homepage": "https://github.com/solban1/noodles#readme",
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.44.0",
+    "sass-loader": "^12.3.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  },
+  "dependencies": {
+    "@material/mwc-button": "^0.25.3",
+    "@material/mwc-tab": "^0.25.3",
+    "@material/mwc-tab-bar": "^0.25.3"
+  }
+}
