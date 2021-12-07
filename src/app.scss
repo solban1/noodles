@@ -1,0 +1,12 @@
+mwc-fab {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+mwc-dialog div {
+  flex-direction: column;
+}
+mwc-dialog div, mwc-radio {
+  display: flex;
+}

@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +15,37 @@
       <mwc-tab label="조리사"></mwc-tab>
     </mwc-tab-bar>
     <div id="customer_page">
-      <p>Lorem ipsum 1</p>
+      <mwc-list id="customer_list"></mwc-list>
     </div>
     <div id="cook_page" hidden>
-      <p>Lorem ipsum 2</p>
+      <mwc-list id="pot_list"></mwc-list>
     </div>
 
+    <mwc-fab icon="add"></mwc-fab>
+
+    <mwc-dialog id="request_dialog" heading="라면 주문">
+      <div>
+        <mwc-list>
+          <mwc-list-item dialogAction="snack">
+            스낵면
+          </mwc-list-item>
+          <mwc-list-item dialogAction="jin">
+            진라면 매운맛
+          </mwc-list-item>
+          <mwc-list-item dialogAction="rta">
+            너구리
+          </mwc-list-item>
+        </mwc-list>
+      </div>
+      <mwc-button
+          dialogAction="cancel"
+          slot="secondaryAction">
+        취소
+      </mwc-button>
+    </mwc-dialog>
+
+    <mwc-snackbar id="pot_status_message"
+      labelText="">
+    </mwc-snackbar>
   </body>
 </html>
