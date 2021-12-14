@@ -9,9 +9,11 @@ import '@material/mwc-list';
 import '@material/mwc-dialog';
 import '@material/mwc-circular-progress';
 import '@material/mwc-snackbar';
+import '@material/mwc-top-app-bar';
 
 import Customer from './Customer.js';
 import noodlesDB from './noodlesDB.js';
+import markCustomerAsServed from './markCustomerAsServed.js';
 
 const customerPage = document.querySelector('#customer_page');
 const cookPage = document.querySelector('#cook_page');
@@ -73,22 +75,36 @@ const addCustomer = () => {
         <mwc-icon slot="graphic">person</mwc-icon>
     `;
 
-    const newCustomer = new Customer(customerCount);
+    const newCustomer = new Customer(customerCount, item);
     item.targetCustomer = newCustomer;
     customerList.appendChild(item);
 };
+
+// const markCustomerAsServed = item => {
+//     item.targetCustomer.status = 'served';
+//     item.twoline = false;
+//     item.querySelector('mwc-circular-progress').remove();
+//     const icon = document.createElement('mwc-icon');
+//     icon.setAttribute('slot', 'graphic');
+//     icon.innerText = 'done';
+//     item.appendChild(icon);
+// }
 
 // 손님 클릭 event
 customerList.addEventListener('action', event => {
     const selectedCustomer = customerList.selected.targetCustomer;
     const selectedItem = customerList.selected;
+
+    if (selectedCustomer.status == 'idle') {
+        requestDialog.open = true;
+        return;
+    }
+
+    const customerName = '손님 ' + selectedCustomer.id;
+    const noodleName = noodlesDB[selectedCustomer.noodleType].name;
+
     switch (selectedCustomer.status) {
-        case 'idle':
-            requestDialog.open = true;
-            break;
         case 'requested': // 조리상태 표시
-            const customerName = '손님 ' + selectedCustomer.id;
-            const noodleName = noodlesDB[selectedCustomer.noodleType].name;
             const progress = selectedCustomer.getProgress();
             let statusMessage = '';
             switch (progress.status) {
@@ -100,13 +116,7 @@ customerList.addEventListener('action', event => {
                     break;
                 case 'served': // 손님도 완료 상태로 변경
                     statusMessage = '조리가 완료되었습니다.';
-                    selectedCustomer.status = 'served';
-                    selectedItem.twoline = false;
-                    selectedItem.querySelector('mwc-circular-progress').remove();
-                    const icon = document.createElement('mwc-icon');
-                    icon.setAttribute('slot', 'graphic');
-                    icon.innerText = 'done';
-                    selectedItem.appendChild(icon);
+                    markCustomerAsServed(selectedItem);
                     break;
             }
             const remainingTimeMessage = progress.status != 'served' ?
@@ -115,6 +125,12 @@ customerList.addEventListener('action', event => {
             potStatusMessage.labelText =`
                 ${customerName}의 ${noodleName}: ${statusMessage} ${remainingTimeMessage}
             `;
+            potStatusMessage.show();
+            break;
+        case 'served':
+            potStatusMessage.labelText = `
+                ${customerName}의 ${noodleName}: 조리가 완료되었습니다.
+            `
             potStatusMessage.show();
             break;
     }

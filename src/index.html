@@ -1,51 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
-  </head>
-  <body>
-    <mwc-tab-bar id="role_tab" activeIndex=0>
-      <mwc-tab label="손님"></mwc-tab>
-      <mwc-tab label="조리사"></mwc-tab>
-    </mwc-tab-bar>
-    <div id="customer_page">
-      <mwc-list id="customer_list"></mwc-list>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+</head>
+
+<body>
+  <mwc-top-app-bar>
+    <div slot="title">Noodles</div>
+    <div><!-- content --></div>
+</mwc-top-app-bar>
+  <mwc-tab-bar id="role_tab" activeIndex=0>
+    <mwc-tab label="손님"></mwc-tab>
+    <mwc-tab label="조리사"></mwc-tab>
+  </mwc-tab-bar>
+  <div id="customer_page">
+    <mwc-list id="customer_list"></mwc-list>
+  </div>
+  <div id="cook_page" hidden>
+    <mwc-list id="pot_list"></mwc-list>
+  </div>
+
+  <mwc-fab icon="add"></mwc-fab>
+
+  <mwc-dialog id="request_dialog" heading="라면 주문">
+    <div>
+      <mwc-list>
+        <mwc-list-item dialogAction="snack">
+          스낵면
+        </mwc-list-item>
+        <mwc-list-item dialogAction="jin">
+          진라면 매운맛
+        </mwc-list-item>
+        <mwc-list-item dialogAction="rta">
+          너구리
+        </mwc-list-item>
+      </mwc-list>
     </div>
-    <div id="cook_page" hidden>
-      <mwc-list id="pot_list"></mwc-list>
-    </div>
+    <mwc-button dialogAction="cancel" slot="secondaryAction">
+      취소
+    </mwc-button>
+  </mwc-dialog>
 
-    <mwc-fab icon="add"></mwc-fab>
+  <mwc-snackbar id="pot_status_message" labelText="">
+  </mwc-snackbar>
+</body>
 
-    <mwc-dialog id="request_dialog" heading="라면 주문">
-      <div>
-        <mwc-list>
-          <mwc-list-item dialogAction="snack">
-            스낵면
-          </mwc-list-item>
-          <mwc-list-item dialogAction="jin">
-            진라면 매운맛
-          </mwc-list-item>
-          <mwc-list-item dialogAction="rta">
-            너구리
-          </mwc-list-item>
-        </mwc-list>
-      </div>
-      <mwc-button
-          dialogAction="cancel"
-          slot="secondaryAction">
-        취소
-      </mwc-button>
-    </mwc-dialog>
-
-    <mwc-snackbar id="pot_status_message"
-      labelText="">
-    </mwc-snackbar>
-  </body>
 </html>

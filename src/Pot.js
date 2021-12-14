@@ -1,14 +1,16 @@
 'use strict';
 
 import noodlesDB from "./noodlesDB";
+import markCustomerAsServed from "./markCustomerAsServed";
 
 export default class {
-    constructor(noodleType) {
+    constructor(noodleType, listItem) {
         this.status = 'idle';
         this.checkpoint = Date.now();
         this.timeout;
         this.boilingTime = noodlesDB[noodleType].water / 5 + 60;
         this.cookingTime = noodlesDB[noodleType].time;
+        this.listItem = listItem;
         this.boilWater();
     }
 
@@ -26,6 +28,7 @@ export default class {
 
     serve() {
         this.status = 'served';
+        markCustomerAsServed(this.listItem)
     }
 
     getProgress() {
